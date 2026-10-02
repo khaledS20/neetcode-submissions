@@ -1,11 +1,8 @@
 class CountSquares {
     private:
 public:
-    map<pair<int,int>,int>freq;
+    map<pair<int, int>, int>freq;
     CountSquares() {
-        
-    }
-    ~CountSquares() {
         
     }
     
@@ -15,17 +12,18 @@ public:
     
     int count(vector<int> point) {
         int count = 0;
+
         int x = point[0];
         int y = point[1];
 
-        for(auto item : freq){
-            pair<int, int>it = item.first;
-            if(x!=it.first && y != it.second && abs(x - it.first) == abs(y - it.second)){
-                int f1 = freq[{it.first, it.second}];
-                int f2 = freq[{x, it.second}];
-                int f3 = freq[{it.first, y}];
+        for(auto t : freq){
+            pair<int,int>item=t.first;
+            if(item.first != x && item.second != y && abs(item.first - x) == abs(item.second - y)){
+                int f1 = freq[{item.first, item.second}];
+                int f2 = freq[{item.first, y}];
+                int f3 = freq[{x, item.second}];
 
-                count+=f1*f2*f3;
+                count += f1 * f2 * f3;
             }
         }
         return count;
