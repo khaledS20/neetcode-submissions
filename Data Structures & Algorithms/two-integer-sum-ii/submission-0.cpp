@@ -1,16 +1,18 @@
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        
+    vector<int> twoSum(vector<int>& numbers, int target) {
         int left = 0;
-        int right = nums.size() - 1;
+        int right = numbers.size() - 1;
 
-        while(left < right)
-        {
-            if((nums[left] + nums[right]) == target)return {left+1, right+1};
-            else if((nums[left] + nums[right]) > target)right--;
-            else left++;
+
+        while(left < right){
+            int sum = numbers[left] + numbers[right];
+
+            if(sum == target) return {left + 1, right + 1};
+            else if(sum < target)left++;
+            else right--;
         }
+
         return {-1, -1};
     }
 };
