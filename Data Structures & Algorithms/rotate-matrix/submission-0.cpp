@@ -1,22 +1,20 @@
 class Solution {
 public:
     void rotate(vector<vector<int>>& matrix) {
-        int n = matrix.size();  // rows
-        int m = matrix[0].size(); // colums
-
+        
         int top = 0;
-        int bottom = n - 1;
+        int bottom = matrix.size()-1;
 
         while(top < bottom){
-            for(int i = 0; i<m; i++){
-                swap(matrix[bottom][i], matrix[top][i]);
+            for(int col = 0; col < matrix[0].size(); col++){
+                swap(matrix[top][col], matrix[bottom][col]);
             }
             top++;
             bottom--;
         }
 
-        for(int row = 0; row<n; row++){
-            for(int col = row + 1; col<m; col++){
+        for(int row = 0; row<matrix.size(); row++){
+            for(int col = row + 1; col < matrix[0].size(); col++){
                 swap(matrix[row][col], matrix[col][row]);
             }
         }
