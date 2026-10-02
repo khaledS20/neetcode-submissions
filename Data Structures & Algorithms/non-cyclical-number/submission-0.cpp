@@ -1,19 +1,21 @@
 class Solution {
 public:
     bool isHappy(int n) {
-        unordered_set<int>holder;
-
+        int result = 0;
+        unordered_set<int>hold;
         while(true){
-            int val = 0;
             while(n){
+
                 int d = n%10;
-                val += d*d;
+                result += d*d;
                 n/=10;
             }
-            if(holder.count(val))return false;
-            if(val == 1)return true;
-            holder.insert(val);
-            n = val;
+            if(result == 1) return true;
+            if(hold.find(result) != hold.end())return false;
+            hold.insert(result);
+            n = result;
+            result = 0;
         }
+        return false;
     }
 };
