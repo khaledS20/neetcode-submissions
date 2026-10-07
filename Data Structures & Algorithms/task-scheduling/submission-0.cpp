@@ -2,29 +2,31 @@ class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
         priority_queue<int>maxHeap;
-        queue<pair<int, int>>repo;
-        unordered_map<char, int>freq;
-
-        for(auto task : tasks)freq[task]++;
-        for(auto &[a, b] : freq)maxHeap.push(b);
-
+        unordered_map<int, int>freq;
+        queue<pair<int, int>>hold;
+        for(auto task : tasks){
+            freq[task]++;
+        }
+        for(auto [a, b] : freq){
+            maxHeap.push(b);
+        }
         int time = 0;
 
-        while(!maxHeap.empty() || !repo.empty()){
+        while(!maxHeap.empty() || !hold.empty()){
             time++;
-            if(!maxHeap.empty())
-            {
-                int top = maxHeap.top();maxHeap.pop();
-                top--;
-                if(top){
-                    repo.push({top, time + n});
+            if(!maxHeap.empty()){
+                int t = maxHeap.top();
+                maxHeap.pop();
+                t--;
+                if(t){
+                    hold.push({t, n + time});
                 }
             }
-            if(!repo.empty() && time == repo.front().second){
-                int front =  repo.front().first;
-                repo.pop();
-                maxHeap.push(front);
-            }
+            if(!hold.empty() && hold.front().second == time){
+                int f = hold.front().first;
+                hold.pop();
+                maxHeap.push(f);
+            } 
         }
         return time;
     }
