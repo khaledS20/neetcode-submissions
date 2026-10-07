@@ -1,8 +1,8 @@
 class Solution {
 public:
-
-    bool can(vector<int>&piles, int speed, int h){
+    bool solve(int speed, vector<int>&piles, int h){
         int hours = 0;
+
         for(auto pile : piles){
             hours += ceil((double)pile/speed);
         }
@@ -12,11 +12,10 @@ public:
         
         int left = 1;
         int right = *max_element(piles.begin(), piles.end());
-        int ans = -1;
+        int ans = 0;
         while(left <= right){
-            int mid = left + (right - left)/2;
-
-            if(can(piles, mid, h)){
+            int mid = (left + right) / 2;
+            if(solve(mid, piles, h)){
                 ans = mid;
                 right = mid - 1;
             }else{
