@@ -12,13 +12,14 @@
 
 class Solution {
 public:
-    bool isValidBST(TreeNode* root) {
-        return valid(root, LONG_MIN, LONG_MAX);
-    }
-    bool valid(TreeNode* root, long long mini, long long maxi)
-    {
+    bool dfs(TreeNode*root, long long minVal, long long maxVal){
         if(!root)return true;
-        if(!(root->val > mini && root->val < maxi))return false;
-        return valid(root->left, mini, root->val) && valid(root->right, root->val, maxi);
+
+        if(!(root->val > minVal && root->val < maxVal)) return false;
+
+        return dfs(root->left, minVal, root->val) && dfs(root->right, root->val, maxVal);
+    }
+    bool isValidBST(TreeNode* root) {
+        return dfs(root, LONG_MIN, LONG_MAX);
     }
 };
