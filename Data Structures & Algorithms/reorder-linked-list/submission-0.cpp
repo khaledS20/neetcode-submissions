@@ -12,22 +12,22 @@
 class Solution {
 public:
     void reorderList(ListNode* head) {
-        vector<int>container;
-        ListNode* iterator = head;
+        vector<int>l;
+        ListNode* curr = head;
 
-        while(iterator){
-            container.push_back(iterator->val);
-            iterator = iterator->next;
+        while(curr){
+            l.push_back(curr->val);
+            curr = curr->next;
         }
-        int n = container.size();
-
+        curr = head;
+        int n = l.size();
         for(int i = 0; i<n/2; i++){
-            head->val = container[i];
-            head = head->next;
-            head->val = container[n - 1 - i];
-            head = head->next;
+            curr->val = l[i];
+            curr = curr->next;
+            curr->val = l[n-1-i];
+            curr = curr->next;
         }
-
-        if(n%2)head->val = container[n/2];
+        if(n%2) curr->val = l[n/2];
+        // return head;
     }
 };
