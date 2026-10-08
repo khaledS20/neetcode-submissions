@@ -14,20 +14,20 @@ public:
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(!root)return nullptr;
         if(root->val == key){
-            if(!root->left && !root->right)return nullptr;
+            if(!root->left && !root->right) return nullptr;
             if(!root->left || !root->right){
                 if(root->left)return root->left;
                 else return root->right;
             }
 
-            TreeNode* predesesor = root->left;
-            while(predesesor->right){
-                predesesor = predesesor->right;
+            TreeNode* predecessor = root->left;
+            while(predecessor->right){
+                predecessor = predecessor->right;
             }
-            root->val = predesesor->val;
-            root->left = deleteNode(root->left, predesesor->val);
-        }
-        else if(root->val > key){
+
+            root->val = predecessor->val;
+            root->left = deleteNode(root->left, predecessor->val);
+        }else if(root->val > key){
             root->left = deleteNode(root->left, key);
         }else{
             root->right = deleteNode(root->right, key);
