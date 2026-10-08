@@ -1,15 +1,16 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
+        int result = INT_MIN;
+        int sum = 0;
+        int left = 0;
 
-            int maxSub = INT_MIN;
-            int minLeft  = 0;
-            int sum = 0;
-            for(auto &item : nums){
-                sum+=item;
-                maxSub = max(maxSub, sum - minLeft);
-                minLeft = min(minLeft, sum);
-            }
-            return maxSub;
+        for(auto num : nums){
+            sum += num;
+            result = max(result, sum - left);
+            left = min(left, sum);
+        }
+        return result;
+
     }
 };
