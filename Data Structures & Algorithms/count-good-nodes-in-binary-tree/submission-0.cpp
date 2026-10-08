@@ -12,19 +12,19 @@
 
 class Solution {
 public:
-    int goodNodes(TreeNode* root) {
-        int count = 0;
-        dfs(root, count, INT_MIN);
-        return count;
-    }
-    void dfs(TreeNode *root, int &count, int maxVal){
+    void dfs(TreeNode*root, int maxVal, int &ret){
         if(!root)return;
 
         if(root->val >= maxVal){
-            count++;
+            ret++;
             maxVal = root->val;
         }
-        dfs(root->left, count, maxVal);
-        dfs(root->right, count, maxVal);
+        dfs(root->left, maxVal, ret);
+        dfs(root->right, maxVal, ret);
+    }
+    int goodNodes(TreeNode* root) {
+        int ret = 0;
+        dfs(root, INT_MIN, ret);
+        return ret;
     }
 };
