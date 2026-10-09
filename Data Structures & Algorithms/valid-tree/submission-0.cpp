@@ -1,30 +1,27 @@
-
-class Solution{
+class Solution {
 public:
-    void dfs(int node, vector<vector<int>>&adj, int &visitedCount, vector<bool>&visited){
-        visited[node] = true;
-        visitedCount++;
-        for(auto edge : adj[node]){
-            if(!visited[edge]){
-                dfs(edge, adj, visitedCount, visited);
+    void dfs(vector<vector<int>>&adj, vector<bool>&visited, int &c, int n){
+        visited[n] = true;
+        c++;
+        for(auto nei: adj[n]){
+            if(!visited[nei]){
+                dfs(adj, visited, c, nei);
             }
         }
     }
-    bool validTree(int n, vector<vector<int>>&edges){
-        if(edges.size() != n-1) return false;
-        vector<vector<int>>adjacentList(n);
-        // vector<vector<int>>adjacentList;
-        for(auto item : edges){
-            adjacentList[item[0]].push_back(item[1]);
-            adjacentList[item[1]].push_back(item[0]);
+    bool validTree(int n, vector<vector<int>>& edges) {
+        if(edges.size() != n -1)return false;
+        vector<vector<int>>adj(n);
+        vector<bool>visited(n, false);
+        int count = 0;
+
+        for(auto e : edges){
+            adj[e[0]].push_back(e[1]);
+            adj[e[1]].push_back(e[0]);
         }
 
-        vector<bool>visited(n, false);
-        int visitedCount = 0;
-        dfs(0, adjacentList, visitedCount, visited);
-        // dfs(0, edges, visitedCount, visited);
-        
-        return visitedCount == n;
+        dfs(adj, visited, count, 0);
+
+        return n == count;
     }
 };
-
