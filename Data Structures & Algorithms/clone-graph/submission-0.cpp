@@ -21,21 +21,20 @@ public:
 
 class Solution {
 public:
-    unordered_map<Node*, Node*>holder;
+    map<Node*, Node*>visit;
     Node* cloneGraph(Node* node) {
-        if(!node)return node;
+        if(!node)return nullptr;
 
-        if(holder.find(node) != holder.end()){
-            return holder[node];
+        if(visit.find(node) != visit.end()){
+            return visit[node];
         }
 
         Node* clone = new Node(node->val);
-        holder[node] = clone;
+        visit[node] = clone;
 
         for(auto nei : node->neighbors){
             clone->neighbors.push_back(cloneGraph(nei));
         }
-
         return clone;
     }
 };
