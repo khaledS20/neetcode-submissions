@@ -1,33 +1,36 @@
 class Solution {
 public:
-    bool canFinish(int n, vector<vector<int>>& edges) {
-        vector<vector<int>>adjList(n);
+    bool canFinish(int n, vector<vector<int>>& pre) {
+        vector<vector<int>>adj(n);
         vector<int>degree(n, 0);
+        queue<int>hold;
 
-        for(auto &e : edges){
-            adjList[e[1]].push_back(e[0]);
-            degree[e[0]]++;
+        for(auto p : pre){
+            adj[p[1]].push_back(p[0]);
+            degree[p[0]]++;
         }
-
-        queue<int>q;
 
         for(int i = 0; i<n; i++){
             if(degree[i] == 0){
-                q.push(i);
+                hold.push(i);
             }
         }
 
-        int c = 0;
-        while(!q.empty()){
-            int t = q.front();q.pop();
-            c++;
-            for(auto &course : adjList[t]){
-                degree[course]--;
-                if(degree[course] == 0){
-                    q.push(course);
+
+        int count = 0;
+
+        while(!hold.empty()){
+            auto item = hold.front();
+            hold.pop();
+            count++;
+
+            for(auto element : adj[item]){
+                degree[element]--;
+                if(degree[element] == 0){
+                    hold.push(element);
                 }
             }
         }
-        return n == c;
+        return n == count;
     }
 };
