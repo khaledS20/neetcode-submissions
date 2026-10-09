@@ -1,35 +1,37 @@
 class Solution {
 public:
-    vector<int> findOrder(int n, vector<vector<int>>& x) {
-        vector<vector<int>>a(n);
-        vector<int>d(n, 0);
+    vector<int> findOrder(int n, vector<vector<int>>& pre) {
+        vector<vector<int>>adj(n);
+        vector<int>degree(n, 0);
+        queue<int>hold;
 
-        for(auto &e : x){
-            a[e[1]].push_back(e[0]);
-            d[e[0]]++;
+        for(auto p : pre){
+            adj[p[1]].push_back(p[0]);
+            degree[p[0]]++;
         }
 
-        queue<int>q;
-
         for(int i = 0; i<n; i++){
-            if(d[i] == 0){
-                q.push(i);
+            if(degree[i] == 0){
+                hold.push(i);
             }
         }
 
-        vector<int>v;
 
-        while(!q.empty()){
-            int t = q.front();
-            q.pop();
-            v.push_back(t);
-            for(auto &i : a[t]){
-                d[i]--;
-                if(d[i] == 0){
-                    q.push(i);
+        vector<int>result;
+
+        while(!hold.empty()){
+            auto item = hold.front();
+            hold.pop();
+            result.push_back(item);
+
+            for(auto element : adj[item]){
+                degree[element]--;
+                if(degree[element] == 0){
+                    hold.push(element);
                 }
             }
         }
-        return v.size() != n ? vector<int>{} : v;
+        if(result.size() != n)return {};
+        return result;
     }
 };
